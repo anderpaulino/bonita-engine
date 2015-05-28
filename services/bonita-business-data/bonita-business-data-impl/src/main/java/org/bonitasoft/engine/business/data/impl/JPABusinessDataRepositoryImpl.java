@@ -57,7 +57,7 @@ public class JPABusinessDataRepositoryImpl implements BusinessDataRepository {
 
     private EntityManagerFactory entityManagerFactory;
 
-    private final ThreadLocal<EntityManager> managers = new ThreadLocal<EntityManager>();
+    private final ThreadLocal<EntityManager> managers = new ThreadLocal<>();
 
     private final BusinessDataModelRepository businessDataModelRepository;
 
@@ -67,7 +67,7 @@ public class JPABusinessDataRepositoryImpl implements BusinessDataRepository {
             final Map<String, Object> configuration) {
         this.transactionService = transactionService;
         this.businessDataModelRepository = businessDataModelRepository;
-        this.configuration = new HashMap<String, Object>(configuration);
+        this.configuration = new HashMap<>(configuration);
         this.configuration.put("hibernate.ejb.resource_scanner", InactiveScanner.class.getName());
     }
 
@@ -103,7 +103,7 @@ public class JPABusinessDataRepositoryImpl implements BusinessDataRepository {
         }
         final EntityManager em = getEntityManager();
         final Set<EntityType<?>> entities = em.getMetamodel().getEntities();
-        final Set<String> entityClassNames = new HashSet<String>();
+        final Set<String> entityClassNames = new HashSet<>();
         for (final EntityType<?> entity : entities) {
             entityClassNames.add(entity.getJavaType().getName());
         }
@@ -145,7 +145,7 @@ public class JPABusinessDataRepositoryImpl implements BusinessDataRepository {
     @Override
     public <T extends Entity> List<T> findByIds(final Class<T> entityClass, final List<Long> primaryKeys) {
         if (primaryKeys == null || primaryKeys.isEmpty()) {
-            return new ArrayList<T>();
+            return new ArrayList<>();
         }
         final EntityManager em = getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
